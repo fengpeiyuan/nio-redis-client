@@ -1,0 +1,24 @@
+
+package com.nio.redis.framework.client.output;
+
+import com.nio.redis.framework.client.codec.RedisCodec;
+import com.nio.redis.framework.client.protocol.CommandOutput;
+
+import java.nio.ByteBuffer;
+
+/**
+ * Key output.
+ *
+ * @param <K> Key type.
+ *
+ */
+public class KeyOutput<K, V> extends CommandOutput<K, V, K> {
+    public KeyOutput(RedisCodec<K, V> codec) {
+        super(codec, null);
+    }
+
+    @Override
+    public void set(ByteBuffer bytes) {
+        output = (bytes == null) ? null : codec.decodeKey(bytes);
+    }
+}
